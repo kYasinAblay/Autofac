@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Autofac;
 
-namespace Autofac.Implementation
+namespace Without.DI
 {//AutofacSamples
     public interface ILog
     {
@@ -56,22 +55,9 @@ namespace Autofac.Implementation
     {
         public static void Main(string[] args)
         {
-            //Autofac without DI Resolve
-            //var log = new ConsoleLog();
-            //var engine = new Engine(log);
-            //var car = new Car(engine, log);
-            //car.Go();
-
-            var builder = new ContainerBuilder();
-            builder.RegisterType<ConsoleLog>().As<ILog>().AsSelf();
-            builder.RegisterType<Engine>();
-            builder.RegisterType<Car>();
-
-            IContainer container = builder.Build();
-
-            var log = container.Resolve<ConsoleLog>();
-
-            var car = container.Resolve<Car>();
+            var log = new ConsoleLog();
+            var engine = new Engine(log);
+            var car = new Car(engine, log);
             car.Go();
         }
     }
