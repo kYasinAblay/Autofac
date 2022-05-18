@@ -5,7 +5,7 @@ using Autofac;
 using Autofac.Configuration;
 using Microsoft.Extensions.Configuration;
 
-namespace Json_XML_ConfigurationWithMicrosoftConfiguration
+namespace ConfigurationofModules
 {
     public interface IOperation
     {
@@ -25,6 +25,15 @@ namespace Json_XML_ConfigurationWithMicrosoftConfiguration
         public float Calculate(float a, float b)
         {
             return a * b;
+        }
+    }
+
+    public class CalculationModule : Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterType<Multiplication>().As<IOperation>();
+            builder.RegisterType<Addition>().As<IOperation>();
         }
     }
 
