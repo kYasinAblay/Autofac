@@ -5,6 +5,7 @@ using Autofac.Core.Activators.Reflection;
 using Autofac.Features.Indexed;
 using Autofac.Features.Metadata;
 using Autofac.Features.OwnedInstances;
+using static Shared.ILogClass.SharedClassLog;
 
 namespace Overview
 {
@@ -43,9 +44,9 @@ namespace Overview
     public class Reporting3
     {
         private Func<ConsoleLog> consoleLog;
-        private Func<string, SmsLog> smsLog; // 2
+        private Func<string, SMSLog> smsLog; // 2
 
-        public Reporting3(Func<ConsoleLog> consoleLog, Func<string, SmsLog> smsLog)
+        public Reporting3(Func<ConsoleLog> consoleLog, Func<string, SMSLog> smsLog)
         {
             this.consoleLog = consoleLog;
             this.smsLog = smsLog; // 2
@@ -126,7 +127,7 @@ namespace Overview
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<ConsoleLog>().Keyed<ILog>("cmd");
-            builder.Register(c => new SmsLog("+1234567")).Keyed<ILog>("sms");
+            builder.Register(c => new SMSLog("+1234567")).Keyed<ILog>("sms");
             builder.RegisterType<Reporting6>();
             using (var c = builder.Build())
             {
@@ -152,7 +153,7 @@ namespace Overview
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<ConsoleLog>().As<ILog>();
-            builder.Register(c => new SmsLog("+1234567")).As<ILog>();
+            builder.Register(c => new SMSLog("+1234567")).As<ILog>();
             builder.RegisterType<Reporting4>();
             using (var c = builder.Build())
             {
@@ -165,7 +166,7 @@ namespace Overview
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<ConsoleLog>();
-            builder.RegisterType<SmsLog>();
+            builder.RegisterType<SMSLog>();
             builder.RegisterType<Reporting3>();
             using (var c = builder.Build())
             {
@@ -197,6 +198,10 @@ namespace Overview
             {
                 container.Resolve<Reporting>().Report();
             }
+
+        }
+        static void Main(string[] args)
+        {
 
         }
     }

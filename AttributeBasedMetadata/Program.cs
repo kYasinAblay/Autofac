@@ -68,5 +68,9 @@ namespace AttributeBasedMetadata
                 c.Resolve<ArtDisplay>().Display();
             }
         }
+        static void Main(string[] args)
+        {
+
+        }
     }
 }

@@ -103,5 +103,9 @@ namespace Adapters
 
             }
         }
+        static void Main(string[] args)
+        {
+
+        }
     }
 }
